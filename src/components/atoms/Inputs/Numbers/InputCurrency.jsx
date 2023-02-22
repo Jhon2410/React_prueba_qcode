@@ -1,23 +1,24 @@
 import { TextField } from "@mui/material";
 import { useState } from "react";
 import utils from "../../../../utils/Utils";
+import { connect } from "react-redux";
+import { useEffect } from "react";
 
-function InputCurrency() {
-
-    const [value, setValue] = useState("");
+function InputCurrency({ title = "Number", action, state }) {
 
     const formatter = (e) => {
-        utils.onlyNumber(e.target.value) ?
-            setValue(utils.formatNumber(e.target.value)) : null;
-
+        if (utils.onlyNumber(e.target.value)) {
+            action(utils.formatNumber(e.target.value))
+        }
     }
 
     return (
         <TextField
             id="outlined-number"
-            label="Number"
+            label={title}
             type="text"
-            value={value}
+            fullWidth
+            value={state[title]}
             onChange={formatter}
             InputLabelProps={{
                 shrink: true,
@@ -26,5 +27,11 @@ function InputCurrency() {
         />
     )
 }
+const mapStateToProps = (state) => ({
+    state: state,
+})
 
-export default InputCurrency;
+const mapDispatchToProps = (dispatch) => ({
+    action1: (value) => dispatch({ type: "SET_VALUE", payload: value }),
+})
+export default connect(mapStateToProps, mapDispatchToProps)(InputCurrency);;
