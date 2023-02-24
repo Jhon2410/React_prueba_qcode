@@ -7,7 +7,7 @@
 
 ## Pasos para ejecutar
 
-git clone https://github.com/Jhon2410/prueba_node_js_qcode.git
+git clone https://github.com/Jhon2410/React_prueba_qcode.git
 
 cd React_prueba_qcode
 
